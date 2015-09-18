@@ -25,8 +25,11 @@ public class Main {
 		session.beginTransaction();
 		Criteria cri = session.createCriteria(Member.class);
 		
-		cri.add(Restrictions.like("info", "inf", MatchMode.START)) //'inf%'
-			.add(Property.forName("name").in(new String[]{"test","abs"}))
+		cri
+			.add(Restrictions.conjunction()//( X and X ) <-> disjunction() ( X or X )
+				.add(Restrictions.like("info", "inf", MatchMode.START)) //'inf%'
+				.add(Property.forName("name").in(new String[]{"test","abs"}))
+			)
 			.addOrder(Order.asc("seq"));
 //		cri.addOrder(Property.forName("seq").asc());
 		List<Member> m = cri.list();
@@ -36,6 +39,8 @@ public class Main {
 		m.forEach(mm -> 
 			System.out.println(mm.getSeq()+"\t"+mm.getName()+"  \t"+mm.getInfo()) );
 		session.getTransaction().commit();
+		
+		
 		
 		return ;
 		
