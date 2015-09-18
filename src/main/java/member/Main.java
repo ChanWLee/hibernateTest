@@ -22,7 +22,7 @@ public class Main {
 		
 //		session.save(member); 
 		
-		cri.add(Restrictions.like("name", "name"));
+		cri.add(Restrictions.like("name", "test"));
 		cri.addOrder(Order.desc("seq"));
 		List<Member> m = cri.list();
 		for(Member mm: m){
