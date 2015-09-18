@@ -14,15 +14,12 @@ public class Main {
 	public static void main(String[] args) {
 		Session session = HibernateUtil.getSessionFactory().getCurrentSession();
 		
-		Member member = new Member("testname","testInfo");
+		
+		MemberImpl.add("abs","information");
 		
 		session.beginTransaction();
 		
 		Criteria cri = session.createCriteria(Member.class);
-		
-//		session.save(member);        
-		//test
-		
 		cri.add(Restrictions.like("name", "test"));
 		cri.addOrder(Order.desc("seq"));
 		List<Member> m = cri.list();
