@@ -20,7 +20,8 @@ public class Main {
 		
 		Criteria cri = session.createCriteria(Member.class);
 		
-//		session.save(member); 
+//		session.save(member);        
+		//test
 		
 		cri.add(Restrictions.like("name", "test"));
 		cri.addOrder(Order.desc("seq"));
