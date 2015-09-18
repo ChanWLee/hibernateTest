@@ -1,32 +1,29 @@
 package member;
 
-import java.util.List;
-
 import org.hibernate.Criteria;
 import org.hibernate.Session;
-import org.hibernate.criterion.MatchMode;
-import org.hibernate.criterion.Order;
 import org.hibernate.criterion.Projections;
-import org.hibernate.criterion.Property;
-import org.hibernate.criterion.Restrictions;
 import org.hibernate.transform.Transformers;
-
 import util.HibernateUtil;
+
+import java.util.List;
+
+import static member.MemberImpl.*;
 
 public class Main {
 
 	@SuppressWarnings("unchecked")
 	public static void main(String[] args) {
 		List<Integer> m1 = 
-				(List<Integer>) MemberImpl.get(Projections.projectionList()
-							.add(Projections.max("seq")) );
-		MemberImpl.add("abs"+m1.get(0),"information");
+				(List<Integer>) get(Projections.projectionList()
+						.add(Projections.max("seq")));
+		add("abs" + m1.get(0), "information");
 		
 		Session session = HibernateUtil.getSessionFactory().getCurrentSession();
 		session.beginTransaction();
 		Criteria cri = session.createCriteria(Member.class);
 		
-		//Restrictions.conjunction() Àº and ·Î ±×·ìÇÏ°í, Restrictions.disjunction() Àº or ·Î ±×·ìÇÕ´Ï´Ù.
+		//Restrictions.conjunction() ï¿½ï¿½ and ï¿½ï¿½ ï¿½×·ï¿½ï¿½Ï°ï¿½, Restrictions.disjunction() ï¿½ï¿½ or ï¿½ï¿½ ï¿½×·ï¿½ï¿½Õ´Ï´ï¿½.
 		cri
 		/*
 			.add(Restrictions.or(
@@ -65,8 +62,5 @@ public class Main {
 			System.out.println(mm.getSeq()+"\t"+mm.getName()+"  \t"+mm.getInfo()) );
 //		m.forEach(System.out::println);
 		session.getTransaction().commit();
-		
-		return ;
-		
 	}
 }
