@@ -52,6 +52,8 @@ public class Main {
 					.add(Projections.groupProperty("info").as("info")))
 			.setResultTransformer(Transformers.aliasToBean(Member.class))
 			;
+
+		cri.createCriteria("MemberInfo","info",Criteria.LEFT_JOIN);
 			
 		
 		List<Member> m = cri.list();
