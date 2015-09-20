@@ -3,12 +3,14 @@ package member;
 import org.hibernate.Criteria;
 import org.hibernate.Session;
 import org.hibernate.criterion.Projections;
+import org.hibernate.criterion.Restrictions;
 import org.hibernate.transform.Transformers;
 import util.HibernateUtil;
 
 import java.util.List;
 
-import static member.MemberImpl.*;
+import static member.MemberImpl.add;
+import static member.MemberImpl.get;
 
 public class Main {
 
@@ -53,9 +55,13 @@ public class Main {
 			.setResultTransformer(Transformers.aliasToBean(Member.class))
 			;
 
-		cri.createCriteria("MemberInfo","info",Criteria.LEFT_JOIN);
-			
-		
+//		cri.createAlias("memberInfo","info",Criteria.LEFT_JOIN)
+//				.add(Restrictions.eq("this.name", "abs"));
+
+//		cri.createCriteria("MemberInfo","info",Criteria.LEFT_JOIN)
+//				.add(Restrictions.eq("name", "abs"));
+
+
 		List<Member> m = cri.list();
 //		for(Member mm: m)
 //			System.out.println(mm.getSeq()+"\t"+mm.getName()+"  \t"+mm.getInfo());
