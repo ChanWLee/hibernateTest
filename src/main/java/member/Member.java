@@ -3,7 +3,12 @@ package member;
 import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.Table;
+import javax.persistence.Transient;
 
+/**
+ * @author USER
+ *
+ */
 @Entity
 @Table(name="member")
 public class Member {
@@ -44,6 +49,11 @@ public class Member {
 	}
 
 	public Member(){
+	}
+
+	@Override
+	public String toString() {
+		return "Member [seq=" + seq + ", name=" + name + ", info=" + info + "]";
 	}
 
 
