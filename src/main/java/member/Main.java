@@ -4,6 +4,8 @@ import org.hibernate.Criteria;
 import org.hibernate.SQLQuery;
 import org.hibernate.Session;
 import org.hibernate.criterion.MatchMode;
+import org.hibernate.criterion.Order;
+import org.hibernate.criterion.Projections;
 import org.hibernate.criterion.Restrictions;
 import org.hibernate.sql.JoinType;
 import org.hibernate.transform.Transformers;
@@ -15,15 +17,17 @@ public class Main {
 
 	@SuppressWarnings({ "unchecked" })
 	public static void main(String[] args) {
-//		List<Integer> m1 = (List<Integer>) get(Projections.projectionList().add(Projections.max("seq")));
-//		add("abs" + m1.get(0), "information");
+//		List<Integer> m1 = (List<Integer>) MemberImpl.get(Projections.projectionList().add(Projections.max("seq")));
+//		MemberImpl.add("abs" + m1.get(0), "information");
 		
 		Session session = HibernateUtil.getSessionFactory().getCurrentSession();
 		session.beginTransaction();
 		Criteria cri = session.createCriteria(Member.class);
 //		session.savseOrUpdate(arg0);
 		
-		cri.createAlias("memberInfos","m",JoinType.LEFT_OUTER_JOIN);
+		cri.createAlias("memberInfos","m",JoinType.LEFT_OUTER_JOIN)
+		.addOrder(Order.asc("seq"));
+		
 //		cri.createAlias("member", "m").add(Restrictions.like("m.name","abs",MatchMode.ANYWHERE));
 
 //		cri.createCriteria("MemberInfo","info",JoinType.LEFT_OUTER_JOIN)
@@ -34,12 +38,14 @@ public class Main {
 		
 //		mi.forEach(System.out::println);
 
-		for(Member mm: mi)
+		for(Member mm: mi){
+			//entity를 수정한 것은 아래 트랜잭션이 끝날때 db에 update된다.
+			mm.setName(mm.getName().replace("ba","name"));
 			System.out.println(mm.getSeq()+"\t"+mm.getName()+"  \t"+mm.getInfo()+"  \t"+mm.getMemberInfos());
-		
+		}
 //		mi.forEach(mm -> 
 //			System.out.println(mm.getSeq()+"\t"+mm.getInfo()+"\tmember: "+mm.getMember()..getName()+"  \t"+mm.getMember().getInfo()) );
-
+		
 		session.getTransaction().commit();
 		//group_concat test
 //		

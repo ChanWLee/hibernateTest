@@ -17,9 +17,13 @@ public class MemberImpl {
 	public static void add(String name, String info){
 		Session session = HibernateUtil.getSessionFactory().getCurrentSession();
 		Member member = new Member(name,info);
+		System.out.println("before:"+member);
 		session.beginTransaction();
-		session.save(member);     
+		session.saveOrUpdate(member);
+		System.out.println("after1:"+member);
+		member.setName(name.replaceAll("abs", "ch0"));
 		session.getTransaction().commit();
+		System.out.println("after2:"+member);
 	}
 	
 	/**

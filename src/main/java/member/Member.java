@@ -5,15 +5,17 @@ import java.util.List;
 import javax.annotation.Resource;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
+import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
+import javax.persistence.OrderBy;
 import javax.persistence.Table;
 
 @Entity
 @Table(name="member")
 public class Member {
 
-	@Id
+	@Id @GeneratedValue
 	private int seq;
 	@Resource
 	private String name;
