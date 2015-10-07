@@ -22,11 +22,11 @@ public class Main {
 		
 		Session session = HibernateUtil.getSessionFactory().getCurrentSession();
 		session.beginTransaction();
-		Criteria cri = session.createCriteria(Member.class);
+		Criteria cri = session.createCriteria(Member.class)
+				.addOrder(Order.asc("seq"));//order by Ãß°¡
 //		session.savseOrUpdate(arg0);
-		
-		cri.createAlias("memberInfos","m",JoinType.LEFT_OUTER_JOIN)
-		.addOrder(Order.asc("seq"));
+		//left outer join
+		cri.createAlias("memberInfos","m",JoinType.LEFT_OUTER_JOIN);
 		
 //		cri.createAlias("member", "m").add(Restrictions.like("m.name","abs",MatchMode.ANYWHERE));
 
